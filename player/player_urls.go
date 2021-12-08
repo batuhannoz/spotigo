@@ -8,4 +8,5 @@ const (
 	StartResumePlaybackURL      = "https://api.spotify.com/v1/me/player/play"
 	SetPlaybackVolumeURL        = "https://api.spotify.com/v1/me/player/volume"
 	PausePlaybackURL            = "https://api.spotify.com/v1/me/player/pause"
+	SkipToNextURL               = "https://api.spotify.com/v1/me/player/next"
 )
