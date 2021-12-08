@@ -2,10 +2,10 @@ package spotify
 
 import "net/http"
 
-// Skips to next track in the user’s queue.
-func SkipToNext(token string, deviceID string) error {
+// Skips to previous track in the user’s queue.
+func SkipToPrevious(token string, deviceID string) error {
 	client := &http.Client{}
-	req, err := http.NewRequest(http.MethodPost, SkipToNextURL, nil)
+	req, err := http.NewRequest(http.MethodPost, SkipToPreviousURL, nil)
 	if err != nil {
 		return err
 	}

@@ -2,14 +2,15 @@ package spotify
 
 import "net/http"
 
-// Skips to next track in the user’s queue.
-func SkipToNext(token string, deviceID string) error {
+// Seeks to the given position in the user’s currently playing track.
+func SeekToPosition(token string, deviceID string, positionms string) error {
 	client := &http.Client{}
-	req, err := http.NewRequest(http.MethodPost, SkipToNextURL, nil)
+	req, err := http.NewRequest(http.MethodPut, SeekToPositionURL, nil)
 	if err != nil {
 		return err
 	}
 	q := req.URL.Query()
+	q.Add("position_ms", positionms)
 	q.Add("device_id", deviceID)
 	req.URL.RawQuery = q.Encode()
 	req.Header.Add("Authorization", token)
