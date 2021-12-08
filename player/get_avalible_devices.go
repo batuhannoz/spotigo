@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -19,10 +18,6 @@ type GetAvailableDevicesResponse struct {
 	} `json:"devices"`
 }
 
-const (
-	GetAvailableDevicesURL = "https://api.spotify.com/v1/me/player/devices"
-)
-
 // Get information about a user’s available devices
 func GetAvailableDevices(spotifyToken string) (GetAvailableDevicesResponse, error) {
 	response := GetAvailableDevicesResponse{}
@@ -30,7 +25,6 @@ func GetAvailableDevices(spotifyToken string) (GetAvailableDevicesResponse, erro
 	request, err := http.NewRequest(http.MethodGet, GetAvailableDevicesURL, nil)
 
 	if err != nil {
-		fmt.Println(err)
 		return response, err
 	}
 

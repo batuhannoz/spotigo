@@ -98,10 +98,6 @@ type GetPlaybackStateResponse struct {
 	IsPlaying bool `json:"is_playing"`
 }
 
-const (
-	GetPlaybackStateURL = "https://api.spotify.com/v1/me/player"
-)
-
 // Get information about the user’s current playback state, including track or episode, progress, and active device.
 func GetPlaybackState(spotifyToken string) (GetPlaybackStateResponse, error) {
 	response := GetPlaybackStateResponse{}

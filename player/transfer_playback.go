@@ -11,10 +11,6 @@ type TransferPlaybackRequest struct {
 	Play      bool     `json:"play"`
 }
 
-const (
-	TransferPlaybackURL = "https://api.spotify.com/v1/me/player"
-)
-
 // Transfer playback to a new device and determine if it should start playing.
 func TransferPLayback(spotifyToken string, deviceIDs []string, play bool) error {
 	client := &http.Client{}
