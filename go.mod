@@ -1,3 +1,3 @@
-module spotigo
+module https://github.com/batuhannoz/spotigo
 
 go 1.17
