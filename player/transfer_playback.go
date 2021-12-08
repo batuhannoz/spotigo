@@ -6,11 +6,6 @@ import (
 	"net/http"
 )
 
-type TransferPlaybackRequest struct {
-	DeviceIds []string `json:"device_ids"`
-	Play      bool     `json:"play"`
-}
-
 // Transfer playback to a new device and determine if it should start playing.
 func TransferPLayback(spotifyToken string, deviceIDs []string, play bool) error {
 	client := &http.Client{}
