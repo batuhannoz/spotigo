@@ -6,4 +6,6 @@ const (
 	GetPlaybackStateURL         = "https://api.spotify.com/v1/me/player"
 	TransferPlaybackURL         = "https://api.spotify.com/v1/me/player"
 	StartResumePlaybackURL      = "https://api.spotify.com/v1/me/player/play"
+	SetPlaybackVolumeURL        = "https://api.spotify.com/v1/me/player/volume"
+	PausePlaybackURL            = "https://api.spotify.com/v1/me/player/pause"
 )
