@@ -6,6 +6,9 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/follow-playlist
+//
+// Add the current user as a follower of a playlist.
 func FollowPlaylist(token string, playlistID string, public bool) error {
 	var reqBody FollowPlaylistRequest
 	reqBody.Public = public

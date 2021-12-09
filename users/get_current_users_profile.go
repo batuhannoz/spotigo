@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile
+//
 // Get detailed profile information about the current user (including the current user's username).
 func GetCurrentUsersProfile(token string) (CurrentUsersProfileResponse, error) {
 	response := CurrentUsersProfileResponse{}

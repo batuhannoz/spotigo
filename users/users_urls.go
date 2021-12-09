@@ -7,4 +7,5 @@ const (
 	GetUsersProfileURL        = "https://api.spotify.com/v1/users/"
 	FollowPlaylistURL         = "https://api.spotify.com/v1/playlists/"
 	UnfollowPlaylistURL       = "https://api.spotify.com/v1/playlists/"
+	GetFollowedArtistsURL     = "https://api.spotify.com/v1/me/following"
 )

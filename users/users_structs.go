@@ -150,3 +150,36 @@ type GetUsersProfileResponse struct {
 type FollowPlaylistRequest struct {
 	Public bool `json:"public"`
 }
+
+type GetFollowedArtistsResponse struct {
+	Artists struct {
+		Items []struct {
+			ExternalUrls struct {
+				Spotify string `json:"spotify"`
+			} `json:"external_urls"`
+			Followers struct {
+				Href  interface{} `json:"href"`
+				Total int         `json:"total"`
+			} `json:"followers"`
+			Genres []string `json:"genres"`
+			Href   string   `json:"href"`
+			Id     string   `json:"id"`
+			Images []struct {
+				Height int    `json:"height"`
+				Url    string `json:"url"`
+				Width  int    `json:"width"`
+			} `json:"images"`
+			Name       string `json:"name"`
+			Popularity int    `json:"popularity"`
+			Type       string `json:"type"`
+			Uri        string `json:"uri"`
+		} `json:"items"`
+		Next    string `json:"next"`
+		Total   int    `json:"total"`
+		Cursors struct {
+			After string `json:"after"`
+		} `json:"cursors"`
+		Limit int    `json:"limit"`
+		Href  string `json:"href"`
+	} `json:"artists"`
+}
