@@ -183,3 +183,5 @@ type GetFollowedArtistsResponse struct {
 		Href  string `json:"href"`
 	} `json:"artists"`
 }
+
+type CheckIfUserFollowsArtistsOrUsersResponse []bool
