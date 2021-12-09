@@ -146,3 +146,7 @@ type GetUsersProfileResponse struct {
 	Type string `json:"type"`
 	Uri  string `json:"uri"`
 }
+
+type FollowPlaylistRequest struct {
+	Public bool `json:"public"`
+}
