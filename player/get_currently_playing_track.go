@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -16,9 +15,12 @@ func GetCurrentlyPlayingTrack(token string, market string) (GetCurrentlyPlayingT
 	req, err := http.NewRequest(http.MethodGet, GetCurrentlyPlayingTrackURL, nil)
 
 	if err != nil {
-		fmt.Println(err)
 		return response, err
 	}
+	q := req.URL.Query()
+	q.Add("market", market)
+	req.URL.RawQuery = q.Encode()
+
 	req.Header.Add("Authorization", token)
 
 	res, err := client.Do(req)
