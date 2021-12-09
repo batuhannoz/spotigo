@@ -14,4 +14,5 @@ const (
 	SetRepeatModeURL            = "https://api.spotify.com/v1/me/player/repeat"
 	TogglePlaybackShuffleURL    = "https://api.spotify.com/v1/me/player/shuffle"
 	GetRecentlyPlayedTracksURL  = "https://api.spotify.com/v1/me/player/recently-played"
+	AddİtemPlaybackQueueURL     = "https://api.spotify.com/v1/me/player/queue"
 )
