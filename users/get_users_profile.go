@@ -30,7 +30,9 @@ func GetUsersProfile(token string) (GetUsersProfileResponse, error) {
 		return response, err
 	}
 	bodyString := string(bodyBytes)
-	json.Unmarshal([]byte(bodyString), &response)
-
+	err = json.Unmarshal([]byte(bodyString), &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
