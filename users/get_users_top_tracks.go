@@ -9,13 +9,13 @@ import (
 
 // See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
 //
-// Get the current user's top artists based on calculated affinity.
+// Get the current user's top tracks based on calculated affinity.
 //
 // limit Default: 20. Minimum: 1. Maximum: 50. timeRange can only be one of: "short_term", "medium_term", "long_term".
-func GetUsersTopArtists(token string, limit int, offset int, timeRange string) (GetUsersTopArtistsResponse, error) {
-	response := GetUsersTopArtistsResponse{}
+func GetUsersTopTracks(token string, limit int, offset int, timeRange string) (GetUsersTopTracksResponse, error) {
+	response := GetUsersTopTracksResponse{}
 	client := &http.Client{}
-	req, err := http.NewRequest(http.MethodGet, GetUsersTopArtistsURL, nil)
+	req, err := http.NewRequest(http.MethodGet, GetUsersTopTracksURL, nil)
 	if err != nil {
 		return response, err
 	}
