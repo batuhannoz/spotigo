@@ -7,6 +7,8 @@ import (
 	"strconv"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
+//
 // Get tracks from the current user's recently played tracks. Note: Currently doesn't support podcast episodes.
 //
 // beforeorafter can only be one of: before, after

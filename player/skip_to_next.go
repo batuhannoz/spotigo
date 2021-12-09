@@ -2,6 +2,8 @@ package spotify
 
 import "net/http"
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-next-track
+//
 // Skips to next track in the user’s queue.
 func SkipToNext(token string, deviceID string) error {
 	client := &http.Client{}

@@ -2,6 +2,8 @@ package spotify
 
 import "net/http"
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/set-repeat-mode-on-users-playback
+//
 // Set the repeat mode for the user's playback. Options are repeat-track, repeat-context, and off.
 //
 // Can be one of the states: track, context, off

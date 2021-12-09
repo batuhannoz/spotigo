@@ -6,6 +6,9 @@ import (
 	"strconv"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/set-volume-for-users-playback
+//
+// Set the volume for the user’s current playback device.
 func SetPlaybackVolume(token string, deviceID string, volume int) error {
 	client := http.Client{}
 	req, err := http.NewRequest(http.MethodPut, SetPlaybackVolumeURL, nil)

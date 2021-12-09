@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/get-the-users-currently-playing-track
+//
 // Get the object currently being played on the user's Spotify account.
 func GetCurrentlyPlayingTrack(token string, market string) (GetCurrentlyPlayingTrackResponse, error) {
 	response := GetCurrentlyPlayingTrackResponse{}

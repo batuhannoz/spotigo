@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
+//
 // Start a new context or resume current playback on the user's active device.
 func StartResumePlayback(token string, deviceID string, contextUri string, position int, positionms int) error {
 	client := http.Client{}

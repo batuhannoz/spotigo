@@ -2,6 +2,8 @@ package spotify
 
 import "net/http"
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/seek-to-position-in-currently-playing-track
+//
 // Seeks to the given position in the user’s currently playing track.
 func SeekToPosition(token string, deviceID string, positionms string) error {
 	client := &http.Client{}

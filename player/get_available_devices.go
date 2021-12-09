@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-users-available-devices
+//
 // Get information about a user’s available devices
 func GetAvailableDevices(spotifyToken string) (GetAvailableDevicesResponse, error) {
 	response := GetAvailableDevicesResponse{}

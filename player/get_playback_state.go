@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/get-information-about-the-users-current-playback
+//
 // Get information about the user’s current playback state, including track or episode, progress, and active device.
 func GetPlaybackState(spotifyToken string) (GetPlaybackStateResponse, error) {
 	response := GetPlaybackStateResponse{}

@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/transfer-a-users-playback
+//
 // Transfer playback to a new device and determine if it should start playing.
 func TransferPLayback(spotifyToken string, deviceIDs []string, play bool) error {
 	client := &http.Client{}

@@ -4,6 +4,8 @@ import (
 	"net/http"
 )
 
+// See here for more information => https://developer.spotify.com/documentation/web-api/reference/#/operations/pause-a-users-playback
+//
 // Pause playback on the user's account.
 func PausePlayback(token string, deviceID string) error {
 
