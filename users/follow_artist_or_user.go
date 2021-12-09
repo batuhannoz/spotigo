@@ -8,7 +8,7 @@ import (
 //
 // Add the current user as a follower of one or more artists or other Spotify users.
 //
-// idType can be one of: "user", "artist",
+// idType can be one of: "user", "artist".
 func FollowArtistsOrUser(token string, ids string, idType string) error {
 	client := &http.Client{}
 	req, err := http.NewRequest(http.MethodPut, FollowArtistOrUserURL, nil)

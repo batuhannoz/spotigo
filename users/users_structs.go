@@ -185,3 +185,5 @@ type GetFollowedArtistsResponse struct {
 }
 
 type CheckIfUserFollowsArtistsOrUsersResponse []bool
+
+type CheckIfUsersFollowPlaylistResponse []bool
