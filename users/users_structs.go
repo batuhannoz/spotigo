@@ -126,3 +126,23 @@ type GetUsersTopTracksResponse struct {
 	Href     string `json:"href"`
 	Next     string `json:"next"`
 }
+
+type GetUsersProfileResponse struct {
+	DisplayName  string `json:"display_name"`
+	ExternalUrls struct {
+		Spotify string `json:"spotify"`
+	} `json:"external_urls"`
+	Followers struct {
+		Href  interface{} `json:"href"`
+		Total int         `json:"total"`
+	} `json:"followers"`
+	Href   string `json:"href"`
+	Id     string `json:"id"`
+	Images []struct {
+		Height interface{} `json:"height"`
+		Url    string      `json:"url"`
+		Width  interface{} `json:"width"`
+	} `json:"images"`
+	Type string `json:"type"`
+	Uri  string `json:"uri"`
+}
