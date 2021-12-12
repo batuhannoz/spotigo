@@ -43,6 +43,7 @@ type UserInfo struct {
 	Fields          string
 	IncludeExternal string
 	SearchType      []string
+	TopItemsType    string
 }
 
 type OutputToSpotify struct {
