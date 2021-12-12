@@ -41,6 +41,8 @@ type UserInfo struct {
 	DeviceIds       []string
 	IncludeGroups   string
 	Fields          string
+	IncludeExternal string
+	SearchType      []string
 }
 
 type OutputToSpotify struct {
