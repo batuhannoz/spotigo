@@ -40,16 +40,16 @@ func SpotigoToSpotify(request OutputToSpotify) (*http.Response, error) {
 
 	// Check spotify response status code.
 	if response.StatusCode != request.TrueStatusCode {
-		if response.StatusCode == 404 {
-			return response, errors.New(response.Status)
-		}
-		errorResponse := SpotifyErrorResponse{}
-		err = json.NewDecoder(response.Body).Decode(&errorResponse)
-		if err != nil {
+		if response.StatusCode == http.StatusUnauthorized || response.StatusCode == http.StatusForbidden || response.StatusCode == http.StatusTooManyRequests {
+			errorResponse := SpotifyErrorResponse{}
+			err = json.NewDecoder(response.Body).Decode(&errorResponse)
+			if err != nil {
+				return response, err
+			}
+			err = errors.New(errorResponse.Error.Message)
 			return response, err
 		}
-		err = errors.New(errorResponse.Error.Message)
-		return response, err
+		return response, errors.New(response.Status)
 	}
 
 	return response, nil
