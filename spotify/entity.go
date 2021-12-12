@@ -40,6 +40,7 @@ type UserInfo struct {
 	SnapshotId      string
 	DeviceIds       []string
 	IncludeGroups   string
+	Fields          string
 }
 
 type OutputToSpotify struct {
