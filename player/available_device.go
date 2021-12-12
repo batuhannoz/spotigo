@@ -23,7 +23,7 @@ func GetAvailableDevices(input spotify.UserInfo) (GetAvailableDevicesResponse, e
 	var response GetAvailableDevicesResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me/player/devices"
 
 	res, err := spotify.SpotigoToSpotify(output)

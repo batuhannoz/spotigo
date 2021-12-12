@@ -15,7 +15,7 @@ func AvailableGenreSeeds(input spotify.UserInfo) (GenreSeedsResponse, error) {
 	var response GenreSeedsResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "recommendations/available-genre-seeds"
 
 	res, err := spotify.SpotigoToSpotify(output)

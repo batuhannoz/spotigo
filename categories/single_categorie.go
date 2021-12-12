@@ -22,12 +22,12 @@ func SingleBrowseCategories(input spotify.UserInfo) (SingleCategoriesResponse, e
 	var response SingleCategoriesResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "browse/categories/" + input.CategoryId
 
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "country", input.Country
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "locale", input.Locale
-
+	output.Query.QueryNumber = 2
 	res, err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err

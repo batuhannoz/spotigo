@@ -35,7 +35,7 @@ func GetArtistsRelatedArtists(input spotify.UserInfo) (GetArtistsRelatedArtistsR
 	var response GetArtistsRelatedArtistsResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "artists/" + input.Id + "/related-artists"
 
 	res, err := spotify.SpotigoToSpotify(output)

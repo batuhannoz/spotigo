@@ -33,7 +33,7 @@ func GetArtist(input spotify.UserInfo) (GetArtistResponse, error) {
 	var response GetArtistResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "artist/" + input.Id
 
 	res, err := spotify.SpotigoToSpotify(output)

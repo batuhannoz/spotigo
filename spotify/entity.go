@@ -53,9 +53,9 @@ type OutputToSpotify struct {
 }
 
 type Query struct {
-	QueryName  [15]string
-	QueryValue [15]string
-	i          int
+	QueryName   [15]string
+	QueryValue  [15]string
+	QueryNumber int
 }
 
 type SpotifyErrorResponse struct {

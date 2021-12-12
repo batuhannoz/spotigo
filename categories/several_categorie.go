@@ -24,13 +24,14 @@ func SeveralBrowseCategories(input spotify.UserInfo) (SeveralBrowseCategoriesRes
 	var response SeveralBrowseCategoriesResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "browse/categories"
 
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "country", input.Country
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "limit", string(input.Limit)
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "locale", input.Locale
 	output.Query.QueryName[3], output.Query.QueryValue[3] = "offset", string(input.Offset)
+	output.Query.QueryNumber = 4
 
 	res, err := spotify.SpotigoToSpotify(output)
 	if err != nil {

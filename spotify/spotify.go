@@ -19,7 +19,7 @@ func SpotigoToSpotify(request OutputToSpotify) (*http.Response, error) {
 	// Add query.
 	q := spotifyReq.URL.Query()
 	if request.Query.QueryName[0] != "" {
-		for i := 0; i <= 7; i++ {
+		for i := 0; i <= request.Query.QueryNumber-1; i++ {
 			if request.Query.QueryValue[i] != "" {
 				q.Add(request.Query.QueryName[i], request.Query.QueryValue[i])
 			}
@@ -38,7 +38,7 @@ func SpotigoToSpotify(request OutputToSpotify) (*http.Response, error) {
 		return response, err
 	}
 
-	// check spotify response status code.
+	// Check spotify response status code.
 	if response.StatusCode != request.TrueStatusCode {
 		if response.StatusCode == 404 {
 			return response, errors.New(response.Status)
@@ -73,7 +73,8 @@ func GeneralSpotifyFunc(input spotify.UserInfo) (GeneralSpotifyFuncResponse, err
 	output.MethodType = http.MethodPost
 
 	// Write the desired status code.
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
+
 
 	// Create the url of the request to be made.
 	output.Url = spotify.BaseUrl + "me/player/queue"
@@ -83,6 +84,8 @@ func GeneralSpotifyFunc(input spotify.UserInfo) (GeneralSpotifyFuncResponse, err
 	// Prepare the queries that will go to the main spotify function.
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "playlist_id", input.PlaylistId
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "uri", input.Uri
+	// Number of queries added
+	output.Query.QueryNumber = 2
 
 	// Prepare json body.
 	requestBody.ContextUri = input.contextURI

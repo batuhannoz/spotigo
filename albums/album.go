@@ -1,4 +1,4 @@
-package albums
+package spotify
 
 import (
 	"encoding/json"
@@ -66,10 +66,11 @@ func GetAlbum(input spotify.UserInfo) (GetAlbumResponse, error) {
 	var response GetAlbumResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "albums/" + input.Id
 
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "market", input.Market
+	output.Query.QueryNumber = 1
 
 	res, err := spotify.SpotigoToSpotify(output)
 	if err != nil {

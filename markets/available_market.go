@@ -15,7 +15,7 @@ func GeneralSpotifyFunc(input spotify.UserInfo) (AvailableMarketsResponse, error
 	var response AvailableMarketsResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
-	output.TrueStatusCode = 200
+	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "markets/"
 
 	res, err := spotify.SpotigoToSpotify(output)
