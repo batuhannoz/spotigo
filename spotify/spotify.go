@@ -64,7 +64,7 @@ func GeneralSpotifyFunc(input spotify.UserInfo) (GeneralSpotifyFuncResponse, err
 	var response GeneralSpotifyFuncResponse
 
 	// If making json request => use requestBody.
-	var requestBody GeneralSpotifyFuncRequest
+	var request GeneralSpotifyFuncRequest
 
 	// Assign given token to variable.
 	output.Token = input.Token
