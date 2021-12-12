@@ -15,7 +15,9 @@ package spotigo
 // TODO Save Episodes for User. - episodes
 // TODO Remove User's Saved Episodes. - episodes
 // TODO Check User's Saved Episodes. - episodes
-// TODO Get Several Tracks.- tracks
-// TODO
-// TODO
+// TODO Get Several Tracks. - tracks
+// TODO Save Tracks for Current User. - tracks
+// TODO Remove Tracks for Current User. - tracks
+// TODO Check User's Saved Tracks. - tracks
+// TODO Get Tracks' Audio Features. - tracks
 // TODO
