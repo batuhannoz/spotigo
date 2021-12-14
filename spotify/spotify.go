@@ -59,34 +59,24 @@ func SpotigoToSpotify(request OutputToSpotify) (*http.Response, error) {
 func GeneralSpotifyFunc(input spotify.UserInfo) (GeneralSpotifyFuncResponse, error) {
 	// Type to be given to the main spotify function
 	var output spotify.OutputToSpotify
-
 	// If GeneralSpotifyFunc nothing's return => response type = string,
 	var response GeneralSpotifyFuncResponse
-
 	// If making json request => use requestBody.
 	var request GeneralSpotifyFuncRequest
-
 	// Assign given token to variable.
 	output.Token = input.Token
-
 	// Determine the method type according to the request to be made.
 	output.MethodType = http.MethodPost
-
 	// Write the desired status code.
 	output.TrueStatusCode = http.StatusOK
-
-
 	// Create the url of the request to be made.
 	output.Url = spotify.BaseUrl + "me/player/queue"
-
 	// In some cases, variable type should be changed in query and body.
-
 	// Prepare the queries that will go to the main spotify function.
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "playlist_id", input.PlaylistId
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "uri", input.Uri
 	// Number of queries added
 	output.Query.QueryNumber = 2
-
 	// Prepare json body.
 	requestBody.ContextUri = input.contextURI
 	requestBody.PositionMS = string(input.PositionMS)
@@ -95,23 +85,19 @@ func GeneralSpotifyFunc(input spotify.UserInfo) (GeneralSpotifyFuncResponse, err
 		return response, err
 	}
 	output.Body = bytes.NewBuffer(jsonBody)
-
 	// Pass information to main function.
 	res, err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
-
 	// Don't use 1 and 2 at the same time.
 	// 1) use this if it will do struct return
 	err = json.NewDecoder(res.Body).Decode(&response)
 	if err != nil {
 		return response, err
 	}
-
 	// 2) Use this if nothing will return
 	response = res.Status
-
 	return response, nil
 }
 */

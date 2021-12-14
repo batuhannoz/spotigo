@@ -1,6 +1,8 @@
 package spotify
 
-import "io"
+import (
+	"io"
+)
 
 const (
 	SpotifyAuthName = "Authorization"
@@ -44,6 +46,7 @@ type UserInfo struct {
 	IncludeExternal string
 	SearchType      []string
 	TopItemsType    string
+	FollowedType    string
 }
 
 type OutputToSpotify struct {

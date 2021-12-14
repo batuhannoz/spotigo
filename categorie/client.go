@@ -1,0 +1,58 @@
+package spotify
+
+import (
+	"encoding/json"
+	"github.com/batuhannoz/spotigo/spotify"
+	"net/http"
+)
+
+func SeveralBrowseCategories(input spotify.UserInfo) (SeveralBrowseCategoriesResponse, error) {
+	var output spotify.OutputToSpotify
+	var response SeveralBrowseCategoriesResponse
+	output.Token = input.Token
+	output.MethodType = http.MethodGet
+	output.TrueStatusCode = http.StatusOK
+	output.Url = spotify.BaseUrl + "browse/categories"
+
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "country", input.Country
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "limit", string(input.Limit)
+	output.Query.QueryName[2], output.Query.QueryValue[2] = "locale", input.Locale
+	output.Query.QueryName[3], output.Query.QueryValue[3] = "offset", string(input.Offset)
+	output.Query.QueryNumber = 4
+
+	res, err := spotify.SpotigoToSpotify(output)
+	if err != nil {
+		return response, err
+	}
+
+	err = json.NewDecoder(res.Body).Decode(&response)
+	if err != nil {
+		return response, err
+	}
+
+	return response, nil
+}
+
+func SingleBrowseCategories(input spotify.UserInfo) (SingleCategoriesResponse, error) {
+	var output spotify.OutputToSpotify
+	var response SingleCategoriesResponse
+	output.Token = input.Token
+	output.MethodType = http.MethodGet
+	output.TrueStatusCode = http.StatusOK
+	output.Url = spotify.BaseUrl + "browse/categories/" + input.CategoryId
+
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "country", input.Country
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "locale", input.Locale
+	output.Query.QueryNumber = 2
+	res, err := spotify.SpotigoToSpotify(output)
+	if err != nil {
+		return response, err
+	}
+
+	err = json.NewDecoder(res.Body).Decode(&response)
+	if err != nil {
+		return response, err
+	}
+
+	return response, nil
+}
