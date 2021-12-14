@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func GetAvailableDevices(input spotify.UserInfo) (GetAvailableDevicesResponse, error) {
+func GetAvailableDevices(input GetAvailableDevicesInput) (GetAvailableDevicesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetAvailableDevicesResponse
 	output.Token = input.Token
@@ -29,7 +29,7 @@ func GetAvailableDevices(input spotify.UserInfo) (GetAvailableDevicesResponse, e
 	return response, nil
 }
 
-func GetPlaybackState(input spotify.UserInfo) (GetPlaybackStateResponse, error) {
+func GetPlaybackState(input GetPlaybackStateInput) (GetPlaybackStateResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetPlaybackStateResponse
 	output.Token = input.Token
@@ -53,7 +53,7 @@ func GetPlaybackState(input spotify.UserInfo) (GetPlaybackStateResponse, error) 
 	return response, nil
 }
 
-func GetCurrentlyPlayingTrack(input spotify.UserInfo) (GetPlaybackStateResponse, error) {
+func GetCurrentlyPlayingTrack(input GetCurrentlyPlayingTrackInput) (GetPlaybackStateResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetPlaybackStateResponse
 	output.Token = input.Token
@@ -77,7 +77,7 @@ func GetCurrentlyPlayingTrack(input spotify.UserInfo) (GetPlaybackStateResponse,
 	return response, nil
 }
 
-func StartResumePlayback(input spotify.UserInfo) (string, error) {
+func StartResumePlayback(input StartResumePlaybackInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	var request StartResumePlaybackRequest
@@ -106,7 +106,7 @@ func StartResumePlayback(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func PausePlayback(input spotify.UserInfo) (string, error) {
+func PausePlayback(input PausePlaybackInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -127,7 +127,7 @@ func PausePlayback(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func SkipToNext(input spotify.UserInfo) (string, error) {
+func SkipToNext(input SkipToNextInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -148,7 +148,7 @@ func SkipToNext(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func SkipToPrevious(input spotify.UserInfo) (string, error) {
+func SkipToPrevious(input SkipToPreviousInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -169,7 +169,7 @@ func SkipToPrevious(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func SeekToPosition(input spotify.UserInfo) (string, error) {
+func SeekToPosition(input SeekToPositionInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -178,7 +178,7 @@ func SeekToPosition(input spotify.UserInfo) (string, error) {
 	output.Url = spotify.BaseUrl + "me/player/seek"
 
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "device_id", input.DeviceId
-	output.Query.QueryName[1], output.Query.QueryValue[1] = "position_ms", string(input.PositionMS)
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "position_ms", strconv.Itoa(input.PositionMS)
 	output.Query.QueryNumber = 2
 
 	res, err := spotify.SpotigoToSpotify(output)
@@ -191,7 +191,7 @@ func SeekToPosition(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func SetRepeatMode(input spotify.UserInfo) (string, error) {
+func SetRepeatMode(input SetRepeatModeInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -213,7 +213,7 @@ func SetRepeatMode(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func SetPlaybackVolume(input spotify.UserInfo) (string, error) {
+func SetPlaybackVolume(input SetPlaybackVolumeInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -222,7 +222,7 @@ func SetPlaybackVolume(input spotify.UserInfo) (string, error) {
 	output.Url = spotify.BaseUrl + "me/player/volume"
 
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "device_id", input.DeviceId
-	output.Query.QueryName[1], output.Query.QueryValue[1] = "volume_percent", string(input.VolumePercent)
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "volume_percent", strconv.Itoa(input.VolumePercent)
 	output.Query.QueryNumber = 2
 
 	res, err := spotify.SpotigoToSpotify(output)
@@ -235,7 +235,7 @@ func SetPlaybackVolume(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func TogglePlaybackShuffle(input spotify.UserInfo) (string, error) {
+func TogglePlaybackShuffle(input TogglePlaybackShuffleInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -257,16 +257,16 @@ func TogglePlaybackShuffle(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func GetRecentlyPlayedTracks(input spotify.UserInfo) (GetRecentlyPlayedTracksResponse, error) {
+func GetRecentlyPlayedTracks(input GetRecentlyPlayedTracksInput) (GetRecentlyPlayedTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetRecentlyPlayedTracksResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me/player/recently-played"
-	output.Query.QueryName[0], output.Query.QueryValue[0] = "after", string(input.After)
-	output.Query.QueryName[1], output.Query.QueryValue[1] = "before", string(input.Before)
-	output.Query.QueryName[2], output.Query.QueryValue[2] = "limit", string(input.Limit)
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "after", strconv.Itoa(input.After)
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "before", strconv.Itoa(input.Before)
+	output.Query.QueryName[2], output.Query.QueryValue[2] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryNumber = 3
 
 	res, err := spotify.SpotigoToSpotify(output)
@@ -282,7 +282,7 @@ func GetRecentlyPlayedTracks(input spotify.UserInfo) (GetRecentlyPlayedTracksRes
 	return response, nil
 }
 
-func AddItemPLaybackQueue(input spotify.UserInfo) (string, error) {
+func AddItemPLaybackQueue(input AddItemPLaybackQueueInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token

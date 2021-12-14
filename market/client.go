@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func AvailableMarkets(input spotify.UserInfo) (AvailableMarketsResponse, error) {
+func AvailableMarkets(input AvailableMarketsInput) (AvailableMarketsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response AvailableMarketsResponse
 	output.Token = input.Token

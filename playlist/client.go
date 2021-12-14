@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func GetPlaylists(input spotify.UserInfo) (GetPlaylistsResponse, error) {
+func GetPlaylists(input GetPlaylistsInput) (GetPlaylistsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetPlaylistsResponse
 	output.Token = input.Token

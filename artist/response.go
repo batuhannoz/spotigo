@@ -1,4 +1,4 @@
-package spotigo
+package spotify
 
 type GetArtistResponse struct {
 	ExternalUrls struct {

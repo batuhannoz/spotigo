@@ -9,49 +9,9 @@ const (
 	BaseUrl         = "https://api.spotify.com/v1/"
 )
 
-type UserInfo struct {
-	Token           string
-	Country         string
-	Market          string
-	Limit           int
-	Offset          int
-	Ids             string
-	Id              string
-	Uri             string
-	DeviceId        string
-	After           int
-	Before          int
-	RepeatModeState string
-	ShuffleState    bool
-	VolumePercent   int
-	PositionMS      int
-	contextURI      string
-	Uris            []string
-	AdditionalTypes string
-	Play            bool
-	CategoryId      string
-	Locale          string
-	PlaylistId      string
-	categoryId      string
-	timestamp       string
-	UserId          string
-	Name            string
-	Public          bool
-	Collaborative   bool
-	Description     string
-	SnapshotId      string
-	DeviceIds       []string
-	IncludeGroups   string
-	Fields          string
-	IncludeExternal string
-	SearchType      []string
-	TopItemsType    string
-	FollowedType    string
-}
-
 type OutputToSpotify struct {
 	Token          string
-	UserInfo       UserInfo
+	UserInfo       interface{}
 	MethodType     string
 	TrueStatusCode int
 	Url            string

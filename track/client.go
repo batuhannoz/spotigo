@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
 	"net/http"
+	"strconv"
 )
 
-func GetUsersSavedTracks(input spotify.UserInfo) (GetUsersSavedTracksResponse, error) {
+func GetUsersSavedTracks(input GetUsersSavedTracksInput) (GetUsersSavedTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersSavedTracksResponse
 	output.Token = input.Token
@@ -14,9 +15,9 @@ func GetUsersSavedTracks(input spotify.UserInfo) (GetUsersSavedTracksResponse, e
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me/episodes"
 
-	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", string(input.Limit)
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "market", input.Market
-	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", string(input.Offset)
+	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
 	res, err := spotify.SpotigoToSpotify(output)
@@ -32,7 +33,7 @@ func GetUsersSavedTracks(input spotify.UserInfo) (GetUsersSavedTracksResponse, e
 	return response, nil
 }
 
-func GetTrack(input spotify.UserInfo) (GetTracksResponse, error) {
+func GetTrack(input GetTrackInput) (GetTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetTracksResponse
 	output.Token = input.Token
@@ -56,7 +57,7 @@ func GetTrack(input spotify.UserInfo) (GetTracksResponse, error) {
 	return response, nil
 }
 
-func GetTracksAudioAnalysis(input spotify.UserInfo) (GetTracksAudioAnalysisResponse, error) {
+func GetTracksAudioAnalysis(input GetTracksAudioAnalysisInput) (GetTracksAudioAnalysisResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetTracksAudioAnalysisResponse
 	output.Token = input.Token

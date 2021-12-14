@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
 	"net/http"
+	"strconv"
 )
 
-func GetEpisodes(input spotify.UserInfo) (GetEpisodesResponse, error) {
+func GetEpisodes(input GetEpisodesInput) (GetEpisodesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetEpisodesResponse
 	output.Token = input.Token
@@ -30,7 +31,7 @@ func GetEpisodes(input spotify.UserInfo) (GetEpisodesResponse, error) {
 	return response, nil
 }
 
-func GetUsersSavedEpisodes(input spotify.UserInfo) (GetUsersSavedEpisodesResponse, error) {
+func GetUsersSavedEpisodes(input GetUsersSavedEpisodesInput) (GetUsersSavedEpisodesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersSavedEpisodesResponse
 	output.Token = input.Token
@@ -38,9 +39,9 @@ func GetUsersSavedEpisodes(input spotify.UserInfo) (GetUsersSavedEpisodesRespons
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me/episodes"
 
-	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", string(input.Limit)
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "market", input.Market
-	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", string(input.Offset)
+	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
 	res, err := spotify.SpotigoToSpotify(output)

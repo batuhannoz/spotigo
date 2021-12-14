@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
 	"net/http"
+	"strconv"
 )
 
-func GetAlbum(input spotify.UserInfo) (GetAlbumResponse, error) {
+func GetAlbum(input GetAlbumInput) (GetAlbumResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetAlbumResponse
 	output.Token = input.Token
@@ -30,7 +31,7 @@ func GetAlbum(input spotify.UserInfo) (GetAlbumResponse, error) {
 	return response, nil
 }
 
-func GetAlbumTracks(input spotify.UserInfo) (GetAlbumTracksResponse, error) {
+func GetAlbumTracks(input GetAlbumTracksInput) (GetAlbumTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetAlbumTracksResponse
 	output.Token = input.Token
@@ -38,9 +39,9 @@ func GetAlbumTracks(input spotify.UserInfo) (GetAlbumTracksResponse, error) {
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "albums/" + input.Id + "/track"
 
-	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", string(input.Limit)
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "market", input.Market
-	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", string(input.Offset)
+	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
 	res, err := spotify.SpotigoToSpotify(output)
@@ -56,7 +57,7 @@ func GetAlbumTracks(input spotify.UserInfo) (GetAlbumTracksResponse, error) {
 	return response, nil
 }
 
-func GetNewReleases(input spotify.UserInfo) (GetNewReleasesResponse, error) {
+func GetNewReleases(input GetNewReleasesInput) (GetNewReleasesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetNewReleasesResponse
 	output.Token = input.Token
@@ -64,9 +65,9 @@ func GetNewReleases(input spotify.UserInfo) (GetNewReleasesResponse, error) {
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "browse/new-releases"
 
-	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", string(input.Limit)
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "country", input.Country
-	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", string(input.Offset)
+	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
 	res, err := spotify.SpotigoToSpotify(output)
@@ -82,7 +83,7 @@ func GetNewReleases(input spotify.UserInfo) (GetNewReleasesResponse, error) {
 	return response, nil
 }
 
-func GetSavedAlbums(input spotify.UserInfo) (GetSavedAlbumsResponse, error) {
+func GetSavedAlbums(input GetSavedAlbumsInput) (GetSavedAlbumsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetSavedAlbumsResponse
 	output.Token = input.Token
@@ -90,9 +91,9 @@ func GetSavedAlbums(input spotify.UserInfo) (GetSavedAlbumsResponse, error) {
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me/albums"
 
-	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", string(input.Limit)
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "market", input.Market
-	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", string(input.Offset)
+	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
 	res, err := spotify.SpotigoToSpotify(output)

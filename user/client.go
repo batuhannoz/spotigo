@@ -5,9 +5,10 @@ import (
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
 	"net/http"
+	"strconv"
 )
 
-func GetCurrentUsersProfile(input spotify.UserInfo) (GetCurrentUsersProfileResponse, error) {
+func GetCurrentUsersProfile(input GetCurrentUsersProfileInput) (GetCurrentUsersProfileResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetCurrentUsersProfileResponse
 	output.Token = input.Token
@@ -28,7 +29,7 @@ func GetCurrentUsersProfile(input spotify.UserInfo) (GetCurrentUsersProfileRespo
 	return response, nil
 }
 
-func FollowPlaylist(input spotify.UserInfo) (string, error) {
+func FollowPlaylist(input FollowPlaylistInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	var request FollowPlaylistRequest
@@ -54,7 +55,7 @@ func FollowPlaylist(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func GetUsersProfile(input spotify.UserInfo) (GetUsersProfileResponse, error) {
+func GetUsersProfile(input GetUsersProfileInput) (GetUsersProfileResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersProfileResponse
 	output.Token = input.Token
@@ -75,7 +76,7 @@ func GetUsersProfile(input spotify.UserInfo) (GetUsersProfileResponse, error) {
 	return response, nil
 }
 
-func GetUsersTopItems(input spotify.UserInfo) (GetUsersTopItemsResponse, error) {
+func GetUsersTopItems(input GetUsersTopItemsInput) (GetUsersTopItemsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersTopItemsResponse
 	output.Token = input.Token
@@ -83,8 +84,8 @@ func GetUsersTopItems(input spotify.UserInfo) (GetUsersTopItemsResponse, error) 
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me/top/" + input.TopItemsType
 
-	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", string(input.Limit)
-	output.Query.QueryName[1], output.Query.QueryValue[1] = "offset", string(input.Offset)
+	output.Query.QueryName[0], output.Query.QueryValue[0] = "limit", strconv.Itoa(input.Limit)
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "time_range", input.PlaylistId
 	output.Query.QueryNumber = 3
 
@@ -101,7 +102,7 @@ func GetUsersTopItems(input spotify.UserInfo) (GetUsersTopItemsResponse, error) 
 	return response, nil
 }
 
-func UnfollowPlaylist(input spotify.UserInfo) (string, error) {
+func UnfollowPlaylist(input UnfollowPlaylistInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
 	output.Token = input.Token
@@ -119,7 +120,7 @@ func UnfollowPlaylist(input spotify.UserInfo) (string, error) {
 	return response, nil
 }
 
-func GetFollowedArtists(input spotify.UserInfo) (GetFollowedArtistsResponse, error) {
+func GetFollowedArtists(input GetFollowedArtistsInput) (GetFollowedArtistsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetFollowedArtistsResponse
 	output.Token = input.Token
@@ -128,7 +129,7 @@ func GetFollowedArtists(input spotify.UserInfo) (GetFollowedArtistsResponse, err
 	output.Url = spotify.BaseUrl + "me/following"
 
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "type", input.FollowedType
-	output.Query.QueryName[1], output.Query.QueryValue[1] = "after", string(input.After)
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "after", strconv.Itoa(input.After)
 	output.Query.QueryNumber = 1
 
 	res, err := spotify.SpotigoToSpotify(output)

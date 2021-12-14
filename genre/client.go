@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func AvailableGenreSeeds(input spotify.UserInfo) (GenreSeedsResponse, error) {
+func AvailableGenreSeeds(input AvailableGenreSeedsInput) (GenreSeedsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GenreSeedsResponse
 	output.Token = input.Token

@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
 	"net/http"
+	"strconv"
 )
 
-func SeveralBrowseCategories(input spotify.UserInfo) (SeveralBrowseCategoriesResponse, error) {
+func SeveralBrowseCategories(input SeveralBrowseCategoriesInput) (SeveralBrowseCategoriesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response SeveralBrowseCategoriesResponse
 	output.Token = input.Token
@@ -15,9 +16,9 @@ func SeveralBrowseCategories(input spotify.UserInfo) (SeveralBrowseCategoriesRes
 	output.Url = spotify.BaseUrl + "browse/categories"
 
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "country", input.Country
-	output.Query.QueryName[1], output.Query.QueryValue[1] = "limit", string(input.Limit)
+	output.Query.QueryName[1], output.Query.QueryValue[1] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "locale", input.Locale
-	output.Query.QueryName[3], output.Query.QueryValue[3] = "offset", string(input.Offset)
+	output.Query.QueryName[3], output.Query.QueryValue[3] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 4
 
 	res, err := spotify.SpotigoToSpotify(output)
@@ -33,7 +34,7 @@ func SeveralBrowseCategories(input spotify.UserInfo) (SeveralBrowseCategoriesRes
 	return response, nil
 }
 
-func SingleBrowseCategories(input spotify.UserInfo) (SingleCategoriesResponse, error) {
+func SingleBrowseCategories(input SingleBrowseCategoriesInput) (SingleCategoriesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response SingleCategoriesResponse
 	output.Token = input.Token
