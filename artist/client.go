@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -11,25 +10,23 @@ func GetArtist(input GetArtistInput) (GetArtistResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetArtistResponse
 	output.Token = input.Token
+	output.ResponseType = &response
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "artist/" + input.Id
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func SingleBrowseCategories(input SingleBrowseCategoriesInput) (GetArtistsAlbumsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetArtistsAlbumsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -41,21 +38,18 @@ func SingleBrowseCategories(input SingleBrowseCategoriesInput) (GetArtistsAlbums
 	output.Query.QueryName[3], output.Query.QueryValue[3] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 4
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func ArtistsTopTracks(input ArtistsTopTracksInput) (ArtistsTopTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response ArtistsTopTracksResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -64,34 +58,27 @@ func ArtistsTopTracks(input ArtistsTopTracksInput) (ArtistsTopTracksResponse, er
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "market", input.Market
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetArtistsRelatedArtists(input GetArtistsRelatedArtistsInput) (GetArtistsRelatedArtistsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetArtistsRelatedArtistsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "artists/" + input.Id + "/related-artists"
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }

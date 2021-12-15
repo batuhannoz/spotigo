@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -10,6 +9,7 @@ import (
 func GetUsersSavedTracks(input GetUsersSavedTracksInput) (GetUsersSavedTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersSavedTracksResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -20,12 +20,7 @@ func GetUsersSavedTracks(input GetUsersSavedTracksInput) (GetUsersSavedTracksRes
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -36,6 +31,7 @@ func GetUsersSavedTracks(input GetUsersSavedTracksInput) (GetUsersSavedTracksRes
 func GetTrack(input GetTrackInput) (GetTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetTracksResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -44,12 +40,7 @@ func GetTrack(input GetTrackInput) (GetTracksResponse, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "market", input.Market
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -60,17 +51,13 @@ func GetTrack(input GetTrackInput) (GetTracksResponse, error) {
 func GetTracksAudioAnalysis(input GetTracksAudioAnalysisInput) (GetTracksAudioAnalysisResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetTracksAudioAnalysisResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "audio-analysis/" + input.Id
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -12,17 +11,13 @@ import (
 func GetCurrentUsersProfile(input GetCurrentUsersProfileInput) (GetCurrentUsersProfileResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetCurrentUsersProfileResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me"
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -46,32 +41,24 @@ func FollowPlaylist(input FollowPlaylistInput) (string, error) {
 	}
 	output.Body = bytes.NewBuffer(jsonBody)
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err = spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetUsersProfile(input GetUsersProfileInput) (GetUsersProfileResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersProfileResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "user/" + input.UserId
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -82,6 +69,7 @@ func GetUsersProfile(input GetUsersProfileInput) (GetUsersProfileResponse, error
 func GetUsersTopItems(input GetUsersTopItemsInput) (GetUsersTopItemsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersTopItemsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -92,12 +80,7 @@ func GetUsersTopItems(input GetUsersTopItemsInput) (GetUsersTopItemsResponse, er
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "time_range", input.PlaylistId
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -108,26 +91,24 @@ func GetUsersTopItems(input GetUsersTopItemsInput) (GetUsersTopItemsResponse, er
 func UnfollowPlaylist(input UnfollowPlaylistInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodDelete
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "playlists/" + input.PlaylistId + "/followers"
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetFollowedArtists(input GetFollowedArtistsInput) (GetFollowedArtistsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetFollowedArtistsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -137,12 +118,7 @@ func GetFollowedArtists(input GetFollowedArtistsInput) (GetFollowedArtistsRespon
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "after", strconv.Itoa(input.After)
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}

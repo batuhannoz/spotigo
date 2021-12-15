@@ -17,10 +17,8 @@ type GetCurrentlyPlayingTrackInput struct {
 }
 
 type StartResumePlaybackInput struct {
-	Token      string
-	DeviceId   string
-	Uri        string
-	PositionMS int
+	Token    string
+	DeviceId string
 }
 
 type PausePlaybackInput struct {

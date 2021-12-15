@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-func SpotigoToSpotify(request OutputToSpotify) (interface{}, error) {
+func SpotigoToSpotify(request OutputToSpotify) error {
 	client := &http.Client{}
 	// Create request
 	spotifyReq, err := http.NewRequest(request.MethodType, request.Url, request.Body)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	// Add query.
@@ -30,13 +30,13 @@ func SpotigoToSpotify(request OutputToSpotify) (interface{}, error) {
 		spotifyReq.Header.Add(SpotifyAuthName, request.Token)
 	} else {
 		err = errors.New("Token Required")
-		return nil, err
+		return err
 	}
 
 	// Do Request.
 	response, err := client.Do(spotifyReq)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	// Check spotify response status code.
@@ -45,22 +45,19 @@ func SpotigoToSpotify(request OutputToSpotify) (interface{}, error) {
 			errorResponse := SpotifyErrorResponse{}
 			err = json.NewDecoder(response.Body).Decode(&errorResponse)
 			if err != nil {
-				return response, err
+				return err
 			}
 			err = errors.New(errorResponse.Error.Message)
-			return response, err
+			return err
 		}
-		return response, errors.New(response.Status)
+		return errors.New(response.Status)
 	}
-	if request.ResponseType != nil {
-		err = json.NewDecoder(response.Body).Decode(&request.ResponseType)
-		if err != nil {
-			return nil, err
-		}
-		return request.ResponseType, nil
-	} else {
+	err = json.NewDecoder(response.Body).Decode(&request.ResponseType)
+	if err == errors.New("EOF") {
 		request.ResponseType = response.Status
-		return request.ResponseType, nil
+		return nil
+	} else {
+		return nil
 	}
 }
 

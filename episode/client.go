@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -10,6 +9,7 @@ import (
 func GetEpisodes(input GetEpisodesInput) (GetEpisodesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetEpisodesResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -18,21 +18,18 @@ func GetEpisodes(input GetEpisodesInput) (GetEpisodesResponse, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "market", input.Market
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetUsersSavedEpisodes(input GetUsersSavedEpisodesInput) (GetUsersSavedEpisodesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersSavedEpisodesResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -43,14 +40,10 @@ func GetUsersSavedEpisodes(input GetUsersSavedEpisodesInput) (GetUsersSavedEpiso
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }

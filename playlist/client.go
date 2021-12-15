@@ -2,13 +2,13 @@ package spotify
 
 import (
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 )
 
 func GetPlaylists(input GetPlaylistsInput) (GetPlaylistsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetPlaylistsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -19,12 +19,7 @@ func GetPlaylists(input GetPlaylistsInput) (GetPlaylistsResponse, error) {
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "market", input.Market
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}

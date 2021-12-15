@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -10,6 +9,7 @@ import (
 func GetUsersSavedShows(input GetUsersSavedShowsInput) (GetUsersSavedShowsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetUsersSavedShowsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -19,12 +19,7 @@ func GetUsersSavedShows(input GetUsersSavedShowsInput) (GetUsersSavedShowsRespon
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -35,6 +30,7 @@ func GetUsersSavedShows(input GetUsersSavedShowsInput) (GetUsersSavedShowsRespon
 func GetShows(input GetShowsInput) (GetShowsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetShowsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -43,12 +39,7 @@ func GetShows(input GetShowsInput) (GetShowsResponse, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "market", input.Market
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -59,6 +50,7 @@ func GetShows(input GetShowsInput) (GetShowsResponse, error) {
 func GetShowEpisodes(input GetShowEpisodesInput) (GetShowEpisodesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetShowEpisodesResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -69,12 +61,7 @@ func GetShowEpisodes(input GetShowEpisodesInput) (GetShowEpisodesResponse, error
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}

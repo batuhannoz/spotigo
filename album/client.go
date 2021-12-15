@@ -2,7 +2,6 @@ package spotify
 
 import (
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -10,6 +9,7 @@ import (
 func GetAlbum(input GetAlbumInput) (GetAlbumResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetAlbumResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -18,21 +18,18 @@ func GetAlbum(input GetAlbumInput) (GetAlbumResponse, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "market", input.Market
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetAlbumTracks(input GetAlbumTracksInput) (GetAlbumTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetAlbumTracksResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -43,21 +40,18 @@ func GetAlbumTracks(input GetAlbumTracksInput) (GetAlbumTracksResponse, error) {
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetNewReleases(input GetNewReleasesInput) (GetNewReleasesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetNewReleasesResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -68,21 +62,18 @@ func GetNewReleases(input GetNewReleasesInput) (GetNewReleasesResponse, error) {
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetSavedAlbums(input GetSavedAlbumsInput) (GetSavedAlbumsResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetSavedAlbumsResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -93,12 +84,7 @@ func GetSavedAlbums(input GetSavedAlbumsInput) (GetSavedAlbumsResponse, error) {
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "offset", strconv.Itoa(input.Offset)
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}

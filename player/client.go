@@ -1,10 +1,7 @@
 package spotify
 
 import (
-	"bytes"
-	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
-	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -12,17 +9,13 @@ import (
 func GetAvailableDevices(input GetAvailableDevicesInput) (GetAvailableDevicesResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetAvailableDevicesResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
 	output.Url = spotify.BaseUrl + "me/player/devices"
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -33,6 +26,7 @@ func GetAvailableDevices(input GetAvailableDevicesInput) (GetAvailableDevicesRes
 func GetPlaybackState(input GetPlaybackStateInput) (GetPlaybackStateResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetPlaybackStateResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -41,12 +35,7 @@ func GetPlaybackState(input GetPlaybackStateInput) (GetPlaybackStateResponse, er
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "market", input.Market
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -57,6 +46,7 @@ func GetPlaybackState(input GetPlaybackStateInput) (GetPlaybackStateResponse, er
 func GetCurrentlyPlayingTrack(input GetCurrentlyPlayingTrackInput) (GetCurrentlyPlayingResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetCurrentlyPlayingResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -65,12 +55,7 @@ func GetCurrentlyPlayingTrack(input GetCurrentlyPlayingTrackInput) (GetCurrently
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "market", input.Market
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -81,7 +66,7 @@ func GetCurrentlyPlayingTrack(input GetCurrentlyPlayingTrackInput) (GetCurrently
 func StartResumePlayback(input StartResumePlaybackInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
-	var request StartResumePlaybackRequest
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPut
 	output.TrueStatusCode = http.StatusNoContent
@@ -89,29 +74,18 @@ func StartResumePlayback(input StartResumePlaybackInput) (string, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "device_id", input.DeviceId
 	output.Query.QueryNumber = 1
 
-	request.ContextUri = input.Uri
-	request.PositionMs = input.PositionMS
-	jsonBody, err := json.Marshal(request)
-	if err != nil {
-		return response, err
-	}
-	output.Body = bytes.NewBuffer(jsonBody)
-
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func PausePlayback(input PausePlaybackInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPut
 	output.TrueStatusCode = http.StatusNoContent
@@ -120,12 +94,7 @@ func PausePlayback(input PausePlaybackInput) (string, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "device_id", input.DeviceId
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -136,6 +105,7 @@ func PausePlayback(input PausePlaybackInput) (string, error) {
 func SkipToNext(input SkipToNextInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPost
 	output.TrueStatusCode = http.StatusNoContent
@@ -144,12 +114,7 @@ func SkipToNext(input SkipToNextInput) (string, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "device_id", input.DeviceId
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -160,6 +125,7 @@ func SkipToNext(input SkipToNextInput) (string, error) {
 func SkipToPrevious(input SkipToPreviousInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPost
 	output.TrueStatusCode = http.StatusNoContent
@@ -168,12 +134,7 @@ func SkipToPrevious(input SkipToPreviousInput) (string, error) {
 	output.Query.QueryName[0], output.Query.QueryValue[0] = "device_id", input.DeviceId
 	output.Query.QueryNumber = 1
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -184,6 +145,7 @@ func SkipToPrevious(input SkipToPreviousInput) (string, error) {
 func SeekToPosition(input SeekToPositionInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPut
 	output.TrueStatusCode = http.StatusNoContent
@@ -193,21 +155,18 @@ func SeekToPosition(input SeekToPositionInput) (string, error) {
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "position_ms", strconv.Itoa(input.PositionMS)
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func SetRepeatMode(input SetRepeatModeInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPut
 	output.TrueStatusCode = http.StatusNoContent
@@ -217,21 +176,18 @@ func SetRepeatMode(input SetRepeatModeInput) (string, error) {
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "state", input.RepeatModeState
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func SetPlaybackVolume(input SetPlaybackVolumeInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPut
 	output.TrueStatusCode = http.StatusNoContent
@@ -241,21 +197,18 @@ func SetPlaybackVolume(input SetPlaybackVolumeInput) (string, error) {
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "volume_percent", strconv.Itoa(input.VolumePercent)
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func TogglePlaybackShuffle(input TogglePlaybackShuffleInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPut
 	output.TrueStatusCode = http.StatusNoContent
@@ -265,21 +218,18 @@ func TogglePlaybackShuffle(input TogglePlaybackShuffleInput) (string, error) {
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "state", strconv.FormatBool(input.ShuffleState)
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
 
 func GetRecentlyPlayedTracks(input GetRecentlyPlayedTracksInput) (GetRecentlyPlayedTracksResponse, error) {
 	var output spotify.OutputToSpotify
 	var response GetRecentlyPlayedTracksResponse
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -289,12 +239,7 @@ func GetRecentlyPlayedTracks(input GetRecentlyPlayedTracksInput) (GetRecentlyPla
 	output.Query.QueryName[2], output.Query.QueryValue[2] = "limit", strconv.Itoa(input.Limit)
 	output.Query.QueryNumber = 3
 
-	res, err := spotify.SpotigoToSpotify(output)
-	if err != nil {
-		return response, err
-	}
-
-	err = mapstructure.Decode(res, &response)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
@@ -305,6 +250,7 @@ func GetRecentlyPlayedTracks(input GetRecentlyPlayedTracksInput) (GetRecentlyPla
 func AddItemPLaybackQueue(input AddItemPLaybackQueueInput) (string, error) {
 	var output spotify.OutputToSpotify
 	var response string
+	output.ResponseType = &response
 	output.Token = input.Token
 	output.MethodType = http.MethodPut
 	output.TrueStatusCode = http.StatusNoContent
@@ -314,14 +260,10 @@ func AddItemPLaybackQueue(input AddItemPLaybackQueueInput) (string, error) {
 	output.Query.QueryName[1], output.Query.QueryValue[1] = "uri", input.Uri
 	output.Query.QueryNumber = 2
 
-	res, err := spotify.SpotigoToSpotify(output)
+	err := spotify.SpotigoToSpotify(output)
 	if err != nil {
 		return response, err
 	}
 
-	err = mapstructure.Decode(res, &response)
-	if err != nil {
-		return response, err
-	}
 	return response, nil
 }
