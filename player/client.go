@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
+	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -21,7 +22,7 @@ func GetAvailableDevices(input GetAvailableDevicesInput) (GetAvailableDevicesRes
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -45,7 +46,7 @@ func GetPlaybackState(input GetPlaybackStateInput) (GetPlaybackStateResponse, er
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -53,9 +54,9 @@ func GetPlaybackState(input GetPlaybackStateInput) (GetPlaybackStateResponse, er
 	return response, nil
 }
 
-func GetCurrentlyPlayingTrack(input GetCurrentlyPlayingTrackInput) (GetPlaybackStateResponse, error) {
+func GetCurrentlyPlayingTrack(input GetCurrentlyPlayingTrackInput) (GetCurrentlyPlayingResponse, error) {
 	var output spotify.OutputToSpotify
-	var response GetPlaybackStateResponse
+	var response GetCurrentlyPlayingResponse
 	output.Token = input.Token
 	output.MethodType = http.MethodGet
 	output.TrueStatusCode = http.StatusOK
@@ -69,7 +70,7 @@ func GetCurrentlyPlayingTrack(input GetCurrentlyPlayingTrackInput) (GetPlaybackS
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -101,8 +102,10 @@ func StartResumePlayback(input StartResumePlaybackInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
 
@@ -122,7 +125,10 @@ func PausePlayback(input PausePlaybackInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 
 	return response, nil
 }
@@ -143,7 +149,10 @@ func SkipToNext(input SkipToNextInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 
 	return response, nil
 }
@@ -164,7 +173,10 @@ func SkipToPrevious(input SkipToPreviousInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 
 	return response, nil
 }
@@ -186,8 +198,10 @@ func SeekToPosition(input SeekToPositionInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
 
@@ -208,8 +222,10 @@ func SetRepeatMode(input SetRepeatModeInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
 
@@ -230,8 +246,10 @@ func SetPlaybackVolume(input SetPlaybackVolumeInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
 
@@ -252,8 +270,10 @@ func TogglePlaybackShuffle(input TogglePlaybackShuffleInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
 
@@ -274,7 +294,7 @@ func GetRecentlyPlayedTracks(input GetRecentlyPlayedTracksInput) (GetRecentlyPla
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -299,7 +319,9 @@ func AddItemPLaybackQueue(input AddItemPLaybackQueueInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }

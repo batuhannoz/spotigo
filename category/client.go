@@ -1,8 +1,8 @@
 package spotify
 
 import (
-	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
+	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -26,11 +26,10 @@ func SeveralBrowseCategories(input SeveralBrowseCategoriesInput) (SeveralBrowseC
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
-
 	return response, nil
 }
 
@@ -50,10 +49,9 @@ func SingleBrowseCategories(input SingleBrowseCategoriesInput) (SingleCategories
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
-
 	return response, nil
 }

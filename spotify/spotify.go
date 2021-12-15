@@ -6,14 +6,12 @@ import (
 	"net/http"
 )
 
-func SpotigoToSpotify(request OutputToSpotify) (*http.Response, error) {
-	var response *http.Response
+func SpotigoToSpotify(request OutputToSpotify) (interface{}, error) {
 	client := &http.Client{}
-
 	// Create request
 	spotifyReq, err := http.NewRequest(request.MethodType, request.Url, request.Body)
 	if err != nil {
-		return response, err
+		return nil, err
 	}
 
 	// Add query.
@@ -30,12 +28,15 @@ func SpotigoToSpotify(request OutputToSpotify) (*http.Response, error) {
 	// Add header.
 	if request.Token != "" {
 		spotifyReq.Header.Add(SpotifyAuthName, request.Token)
+	} else {
+		err = errors.New("Token Required")
+		return nil, err
 	}
 
 	// Do Request.
-	response, err = client.Do(spotifyReq)
+	response, err := client.Do(spotifyReq)
 	if err != nil {
-		return response, err
+		return nil, err
 	}
 
 	// Check spotify response status code.
@@ -51,8 +52,16 @@ func SpotigoToSpotify(request OutputToSpotify) (*http.Response, error) {
 		}
 		return response, errors.New(response.Status)
 	}
-
-	return response, nil
+	if request.ResponseType != nil {
+		err = json.NewDecoder(response.Body).Decode(&request.ResponseType)
+		if err != nil {
+			return nil, err
+		}
+		return request.ResponseType, nil
+	} else {
+		request.ResponseType = response.Status
+		return request.ResponseType, nil
+	}
 }
 
 /*

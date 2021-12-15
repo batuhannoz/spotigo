@@ -1,8 +1,8 @@
 package spotify
 
 import (
-	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
+	"github.com/mitchellh/mapstructure"
 	"net/http"
 )
 
@@ -19,7 +19,7 @@ func AvailableMarkets(input AvailableMarketsInput) (AvailableMarketsResponse, er
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}

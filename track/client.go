@@ -1,8 +1,8 @@
 package spotify
 
 import (
-	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
+	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -25,7 +25,7 @@ func GetUsersSavedTracks(input GetUsersSavedTracksInput) (GetUsersSavedTracksRes
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -49,7 +49,7 @@ func GetTrack(input GetTrackInput) (GetTracksResponse, error) {
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -70,7 +70,7 @@ func GetTracksAudioAnalysis(input GetTracksAudioAnalysisInput) (GetTracksAudioAn
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}

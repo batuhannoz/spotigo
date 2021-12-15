@@ -11,12 +11,12 @@ const (
 
 type OutputToSpotify struct {
 	Token          string
-	UserInfo       interface{}
 	MethodType     string
 	TrueStatusCode int
 	Url            string
 	Body           io.Reader
 	Query          Query
+	ResponseType   interface{}
 }
 
 type Query struct {

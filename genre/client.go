@@ -1,8 +1,8 @@
 package spotify
 
 import (
-	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
+	"github.com/mitchellh/mapstructure"
 	"net/http"
 )
 
@@ -19,10 +19,9 @@ func AvailableGenreSeeds(input AvailableGenreSeedsInput) (GenreSeedsResponse, er
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
-
 	return response, nil
 }

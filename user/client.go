@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
+	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -21,7 +22,7 @@ func GetCurrentUsersProfile(input GetCurrentUsersProfileInput) (GetCurrentUsersP
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -50,8 +51,10 @@ func FollowPlaylist(input FollowPlaylistInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
 
@@ -68,7 +71,7 @@ func GetUsersProfile(input GetUsersProfileInput) (GetUsersProfileResponse, error
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -94,7 +97,7 @@ func GetUsersTopItems(input GetUsersTopItemsInput) (GetUsersTopItemsResponse, er
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
@@ -115,8 +118,10 @@ func UnfollowPlaylist(input UnfollowPlaylistInput) (string, error) {
 		return response, err
 	}
 
-	response = res.Status
-
+	err = mapstructure.Decode(res, &response)
+	if err != nil {
+		return response, err
+	}
 	return response, nil
 }
 
@@ -137,7 +142,7 @@ func GetFollowedArtists(input GetFollowedArtistsInput) (GetFollowedArtistsRespon
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}

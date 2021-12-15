@@ -1,8 +1,8 @@
 package spotify
 
 import (
-	"encoding/json"
 	"github.com/batuhannoz/spotigo/spotify"
+	"github.com/mitchellh/mapstructure"
 	"net/http"
 	"strconv"
 )
@@ -20,11 +20,10 @@ func GetArtist(input GetArtistInput) (GetArtistResponse, error) {
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
-
 	return response, nil
 }
 
@@ -47,11 +46,10 @@ func SingleBrowseCategories(input SingleBrowseCategoriesInput) (GetArtistsAlbums
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
-
 	return response, nil
 }
 
@@ -71,11 +69,10 @@ func ArtistsTopTracks(input ArtistsTopTracksInput) (ArtistsTopTracksResponse, er
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
-
 	return response, nil
 }
 
@@ -92,10 +89,9 @@ func GetArtistsRelatedArtists(input GetArtistsRelatedArtistsInput) (GetArtistsRe
 		return response, err
 	}
 
-	err = json.NewDecoder(res.Body).Decode(&response)
+	err = mapstructure.Decode(res, &response)
 	if err != nil {
 		return response, err
 	}
-
 	return response, nil
 }
