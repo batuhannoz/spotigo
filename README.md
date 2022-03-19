@@ -22,23 +22,24 @@ import (
 	user "github.com/batuhannoz/spotigo/user"
 )
 
-responsePLayer, err := player.SeekToPosition(player.SeekToPositionInput{
+func main(){
+	responsePLayer, err := player.SeekToPosition(player.SeekToPositionInput{
 		Token:      "Bearer <<Token>>",
 		PositionMS: 100000,
 	})
-  
 	if err != nil {
 		fmt.Println(err)
 	}
+	
 	fmt.Println(responsePLayer)
 
 	responseUser, err := user.GetCurrentUsersProfile(user.GetCurrentUsersProfileInput{
 		Token: "Bearer <<Token>>",
 	})
-  
 	if err != nil {
 		fmt.Println(err)
 	}
+	
 	fmt.Println(responseUser)  
 }
 ```
