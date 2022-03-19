@@ -2,7 +2,7 @@
 
 The library that allows you to access the Spotify API I developed for my other project, Radiofy.
 
-Attention users, by the time you read this repo it is out of date and may have bugs!
+Attention users, by the time you read this repo it is out of date and may have bugs!!!
 
 https://developer.spotify.com/documentation/web-api/reference/#/
 
