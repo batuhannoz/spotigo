@@ -1,45 +1,82 @@
-# spotigo
+# Spotigo
 
-The library that allows you to access the Spotify API I developed for my other project, Radiofy.
+A comprehensive Go client library for the Spotify Web API that provides easy-to-use interfaces for interacting with Spotify's services.
 
-Attention users, by the time you read this repo it is out of date and may have bugs!!!
+## Features
 
-https://developer.spotify.com/documentation/web-api/reference/#/
+- **Complete API Coverage**: Support for all major Spotify Web API endpoints including:
+  - User Management
+  - Playlist Operations
+  - Track Information
+  - Album Details
+  - Artist Data
+  - Player Controls
+  - Shows and Episodes
+  - Categories and Genres
+  - Market Information
 
+- **Clean Architecture**: Well-organized codebase with separate packages for different Spotify resources
+- **Type Safety**: Strongly typed requests and responses
+- **Error Handling**: Comprehensive error handling with meaningful error messages
+- **Authentication**: Built-in support for Spotify authentication
 
-Download:
+## Installation
+
+```bash
+go get github.com/batuhannoz/spotigo
 ```
-# go get github.com/batuhannoz/spotigo
-```
 
-Usage:
+## Requirements
+
+- Go 1.17 or higher
+- Spotify API credentials
+
+## Usage
+
+Here's a quick example of how to use Spotigo:
+
 ```go
-package main
+import "github.com/batuhannoz/spotigo/spotify"
 
-import (
-	"fmt"
-	player "github.com/batuhannoz/spotigo/player"
-	user "github.com/batuhannoz/spotigo/user"
-)
+// Initialize client with your Spotify token
+client := spotify.New(token)
 
-func main(){
-	responsePLayer, err := player.SeekToPosition(player.SeekToPositionInput{
-		Token:      "Bearer <<Token>>",
-		PositionMS: 100000,
-	})
-	if err != nil {
-		fmt.Println(err)
-	}
-	
-	fmt.Println(responsePLayer)
-
-	responseUser, err := user.GetCurrentUsersProfile(user.GetCurrentUsersProfileInput{
-		Token: "Bearer <<Token>>",
-	})
-	if err != nil {
-		fmt.Println(err)
-	}
-	
-	fmt.Println(responseUser)  
+// Make API calls
+// Example: Get user profile
+userProfile, err := client.GetUserProfile()
+if err != nil {
+    // Handle error
 }
 ```
+
+## Package Structure
+
+- `/album` - Album-related operations
+- `/artist` - Artist information and management
+- `/category` - Category listings and operations
+- `/episode` - Podcast episode functionality
+- `/genre` - Music genre operations
+- `/market` - Market availability information
+- `/player` - Playback control and state
+- `/playlist` - Playlist management
+- `/show` - Podcast show functionality
+- `/spotify` - Core client functionality
+- `/track` - Track-related operations
+- `/user` - User profile and preferences
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Thanks to Spotify for providing their Web API
+- All contributors who have helped with the project
+
+## Support
+
+If you encounter any issues or have questions, please file an issue on the GitHub repository.
